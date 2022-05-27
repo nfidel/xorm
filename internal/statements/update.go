@@ -16,6 +16,7 @@ import (
 	"github.com/nfidel/xorm/internal/json"
 	"github.com/nfidel/xorm/internal/utils"
 	"github.com/nfidel/xorm/schemas"
+	"github.com/nfidel/xorm/types"
 )
 
 func (statement *Statement) ifAddColUpdate(col *schemas.Column, includeVersion, includeUpdated, includeNil,
@@ -213,7 +214,7 @@ func (statement *Statement) BuildUpdates(tableValue reflect.Value,
 					return nil, nil, err
 				}
 			} else if nulType, ok := fieldValue.Interface().(driver.Valuer); ok {
-				if nv, ok := fieldValue.Interface().(utils.NullableValuer); ok && nv.IsSet() {
+				if nv, ok := fieldValue.Interface().(types.NullableValuer); ok && nv.IsSet() {
 					requiredField = true
 				}
 				val, _ = nulType.Value()
