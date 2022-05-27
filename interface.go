@@ -10,12 +10,12 @@ import (
 	"reflect"
 	"time"
 
-	"xorm.io/xorm/caches"
-	"xorm.io/xorm/contexts"
-	"xorm.io/xorm/dialects"
-	"xorm.io/xorm/log"
-	"xorm.io/xorm/names"
-	"xorm.io/xorm/schemas"
+	"github.com/nfidel/xorm/caches"
+	"github.com/nfidel/xorm/contexts"
+	"github.com/nfidel/xorm/dialects"
+	"github.com/nfidel/xorm/log"
+	"github.com/nfidel/xorm/names"
+	"github.com/nfidel/xorm/schemas"
 )
 
 // Interface defines the interface which Engine, EngineGroup and Session will implementate.

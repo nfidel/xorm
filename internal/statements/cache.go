@@ -8,8 +8,8 @@ import (
 	"fmt"
 	"strings"
 
-	"xorm.io/xorm/internal/utils"
-	"xorm.io/xorm/schemas"
+	"github.com/nfidel/xorm/internal/utils"
+	"github.com/nfidel/xorm/schemas"
 )
 
 // ConvertIDSQL converts SQL with id

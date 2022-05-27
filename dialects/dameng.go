@@ -13,10 +13,10 @@ import (
 	"strconv"
 	"strings"
 
-	"xorm.io/xorm/convert"
-	"xorm.io/xorm/core"
-	"xorm.io/xorm/internal/utils"
-	"xorm.io/xorm/schemas"
+	"github.com/nfidel/xorm/convert"
+	"github.com/nfidel/xorm/core"
+	"github.com/nfidel/xorm/internal/utils"
+	"github.com/nfidel/xorm/schemas"
 )
 
 func init() {
@@ -841,8 +841,8 @@ func addSingleQuote(name string) string {
 }
 
 func (db *dameng) GetColumns(queryer core.Queryer, ctx context.Context, tableName string) ([]string, map[string]*schemas.Column, error) {
-	s := `select   column_name   from   user_cons_columns   
-  where   constraint_name   =   (select   constraint_name   from   user_constraints   
+	s := `select   column_name   from   user_cons_columns
+  where   constraint_name   =   (select   constraint_name   from   user_constraints
 			  where   table_name   =   ?  and   constraint_type   ='P')`
 	rows, err := queryer.QueryContext(ctx, s, tableName)
 	if err != nil {
@@ -864,11 +864,11 @@ func (db *dameng) GetColumns(queryer core.Queryer, ctx context.Context, tableNam
 	}
 	rows.Close()
 
-	s = `SELECT USER_TAB_COLS.COLUMN_NAME, USER_TAB_COLS.DATA_DEFAULT, USER_TAB_COLS.DATA_TYPE, USER_TAB_COLS.DATA_LENGTH, 
+	s = `SELECT USER_TAB_COLS.COLUMN_NAME, USER_TAB_COLS.DATA_DEFAULT, USER_TAB_COLS.DATA_TYPE, USER_TAB_COLS.DATA_LENGTH,
 		USER_TAB_COLS.data_precision, USER_TAB_COLS.data_scale, USER_TAB_COLS.NULLABLE,
 		user_col_comments.comments
-		FROM USER_TAB_COLS 
-		LEFT JOIN user_col_comments on user_col_comments.TABLE_NAME=USER_TAB_COLS.TABLE_NAME 
+		FROM USER_TAB_COLS
+		LEFT JOIN user_col_comments on user_col_comments.TABLE_NAME=USER_TAB_COLS.TABLE_NAME
 		AND user_col_comments.COLUMN_NAME=USER_TAB_COLS.COLUMN_NAME
 		WHERE USER_TAB_COLS.table_name = ?`
 	rows, err = queryer.QueryContext(ctx, s, tableName)

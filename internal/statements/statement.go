@@ -13,14 +13,14 @@ import (
 	"strings"
 	"time"
 
+	"github.com/nfidel/xorm/contexts"
+	"github.com/nfidel/xorm/convert"
+	"github.com/nfidel/xorm/dialects"
+	"github.com/nfidel/xorm/internal/json"
+	"github.com/nfidel/xorm/internal/utils"
+	"github.com/nfidel/xorm/schemas"
+	"github.com/nfidel/xorm/tags"
 	"xorm.io/builder"
-	"xorm.io/xorm/contexts"
-	"xorm.io/xorm/convert"
-	"xorm.io/xorm/dialects"
-	"xorm.io/xorm/internal/json"
-	"xorm.io/xorm/internal/utils"
-	"xorm.io/xorm/schemas"
-	"xorm.io/xorm/tags"
 )
 
 var (

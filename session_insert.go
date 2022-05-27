@@ -12,10 +12,10 @@ import (
 	"strings"
 	"time"
 
-	"xorm.io/xorm/convert"
-	"xorm.io/xorm/dialects"
-	"xorm.io/xorm/internal/utils"
-	"xorm.io/xorm/schemas"
+	"github.com/nfidel/xorm/convert"
+	"github.com/nfidel/xorm/dialects"
+	"github.com/nfidel/xorm/internal/utils"
+	"github.com/nfidel/xorm/schemas"
 )
 
 // ErrNoElementsOnSlice represents an error there is no element when insert
@@ -502,10 +502,12 @@ func (session *Session) genInsertColumns(bean interface{}) ([]string, []interfac
 		}
 
 		// !evalphobia! set fieldValue as nil when column is nullable and zero-value
+		var isNullable bool
 		if _, ok := getFlagForColumn(session.statement.NullableMap, col); ok {
 			if col.Nullable && utils.IsValueZero(fieldValue) {
 				var nilValue *int
 				fieldValue = reflect.ValueOf(nilValue)
+				isNullable = true
 			}
 		}
 
@@ -529,7 +531,9 @@ func (session *Session) genInsertColumns(bean interface{}) ([]string, []interfac
 			if err != nil {
 				return colNames, args, err
 			}
-			args = append(args, arg)
+			if arg != nil || isNullable {
+				args = append(args, arg)
+			}
 		}
 
 		colNames = append(colNames, col.Name)
