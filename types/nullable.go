@@ -9,6 +9,7 @@ import (
 
 type NullableValuer interface {
 	IsSet() bool
+	GetValue() driver.Value
 }
 
 type Nullable[T driver.Value] struct {
@@ -17,16 +18,20 @@ type Nullable[T driver.Value] struct {
 	Set   bool
 }
 
+func (s Nullable[T]) GetValue() driver.Value {
+	if s.Valid {
+		return s.Val
+	} else {
+		return nil
+	}
+}
+
 func (s Nullable[T]) IsSet() bool {
 	return s.Set
 }
 
 func (s Nullable[T]) Value() (driver.Value, error) {
-	if s.Valid {
-		return s.Val, nil
-	} else {
-		return nil, nil
-	}
+	return s.GetValue(), nil
 }
 
 func (s *Nullable[T]) Scan(src interface{}) error {
