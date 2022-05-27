@@ -533,6 +533,8 @@ func (session *Session) genInsertColumns(bean interface{}) ([]string, []interfac
 			}
 			if arg != nil || isNullable {
 				args = append(args, arg)
+			} else {
+				continue
 			}
 		}
 
