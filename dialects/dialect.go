@@ -10,8 +10,8 @@ import (
 	"strings"
 	"time"
 
-	"xorm.io/xorm/core"
-	"xorm.io/xorm/schemas"
+	"github.com/nfidel/xorm/core"
+	"github.com/nfidel/xorm/schemas"
 )
 
 // URI represents an uri to visit database
@@ -155,7 +155,7 @@ func (db *Base) CreateTableSQL(ctx context.Context, queryer core.Queryer, table 
 }
 
 func (db *Base) CreateSequenceSQL(ctx context.Context, queryer core.Queryer, seqName string) (string, error) {
-	return fmt.Sprintf(`CREATE SEQUENCE %s 
+	return fmt.Sprintf(`CREATE SEQUENCE %s
 	minvalue 1
 	   nomaxvalue
 	   start with 1

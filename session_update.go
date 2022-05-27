@@ -11,10 +11,10 @@ import (
 	"strconv"
 	"strings"
 
+	"github.com/nfidel/xorm/caches"
+	"github.com/nfidel/xorm/internal/utils"
+	"github.com/nfidel/xorm/schemas"
 	"xorm.io/builder"
-	"xorm.io/xorm/caches"
-	"xorm.io/xorm/internal/utils"
-	"xorm.io/xorm/schemas"
 )
 
 // enumerated all errors

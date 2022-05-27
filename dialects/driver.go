@@ -9,7 +9,7 @@ import (
 	"fmt"
 	"time"
 
-	"xorm.io/xorm/core"
+	"github.com/nfidel/xorm/core"
 )
 
 // ScanContext represents a context when Scan

@@ -12,10 +12,10 @@ import (
 	"strings"
 	"time"
 
-	"xorm.io/xorm/convert"
-	"xorm.io/xorm/dialects"
-	"xorm.io/xorm/internal/utils"
-	"xorm.io/xorm/schemas"
+	"github.com/nfidel/xorm/convert"
+	"github.com/nfidel/xorm/dialects"
+	"github.com/nfidel/xorm/internal/utils"
+	"github.com/nfidel/xorm/schemas"
 )
 
 // ErrNoElementsOnSlice represents an error there is no element when insert
