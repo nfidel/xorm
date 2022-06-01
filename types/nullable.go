@@ -36,12 +36,12 @@ func (s Nullable[T]) Value() (driver.Value, error) {
 
 func (s *Nullable[T]) Scan(src interface{}) error {
 	if src == nil {
-		*s = Nullable[T]{Valid: false, Set: true}
+		*s = Nullable[T]{Valid: false}
 		return nil
 	}
 
 	var val T
-	*s = Nullable[T]{Val: &val, Valid: true, Set: true}
+	*s = Nullable[T]{Val: &val, Valid: true}
 	switch src.(type) {
 	case []byte:
 		if v, ok := reflect.ValueOf(s.Val).Interface().(sql.Scanner); ok {
