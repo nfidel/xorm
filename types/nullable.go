@@ -13,13 +13,12 @@ type NullableValuer interface {
 }
 
 type Nullable[T driver.Value] struct {
-	Val   *T
-	Valid bool
-	Set   bool
+	Val *T
+	Set bool
 }
 
 func (s Nullable[T]) GetValue() driver.Value {
-	if s.Valid {
+	if s.Val != nil {
 		return s.Val
 	} else {
 		return nil
@@ -36,12 +35,12 @@ func (s Nullable[T]) Value() (driver.Value, error) {
 
 func (s *Nullable[T]) Scan(src interface{}) error {
 	if src == nil {
-		*s = Nullable[T]{Valid: false}
+		*s = Nullable[T]{}
 		return nil
 	}
 
 	var val T
-	*s = Nullable[T]{Val: &val, Valid: true}
+	*s = Nullable[T]{Val: &val}
 	switch src.(type) {
 	case []byte:
 		if v, ok := reflect.ValueOf(s.Val).Interface().(sql.Scanner); ok {
@@ -58,7 +57,7 @@ func (s *Nullable[T]) Scan(src interface{}) error {
 }
 
 func (s Nullable[T]) MarshalJSON() ([]byte, error) {
-	if !s.Valid {
+	if s.Val == nil {
 		return json.Marshal(nil)
 	}
 	return json.Marshal(s.Val)
@@ -67,9 +66,7 @@ func (s Nullable[T]) MarshalJSON() ([]byte, error) {
 func (s *Nullable[T]) UnmarshalJSON(data []byte) error {
 	s.Set = true
 	if string(data) == "null" {
-		s.Valid = false
 		return nil
 	}
-	s.Valid = true
 	return json.Unmarshal(data, &s.Val)
 }

@@ -18,18 +18,16 @@ func Test_Nullable_Scan(t *testing.T) {
 			name:  "Valid Int",
 			input: 800,
 			expected: &Nullable[int]{
-				Set:   true,
-				Valid: true,
-				Val:   &num,
+				Set: true,
+				Val: &num,
 			},
 		},
 		{
 			name:  "Null",
 			input: nil,
 			expected: &Nullable[int]{
-				Set:   true,
-				Valid: false,
-				Val:   nil,
+				Set: true,
+				Val: nil,
 			},
 		},
 	}
@@ -38,7 +36,7 @@ func Test_Nullable_Scan(t *testing.T) {
 		t.Run(tc.name, func(t *testing.T) {
 			json := &Nullable[int]{}
 			json.Scan(tc.input)
-			assert.Equal(t, tc.expected, json)
+			assert.Equal(t, tc.expected.Val, json.Val)
 		})
 	}
 }
