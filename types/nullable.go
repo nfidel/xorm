@@ -42,7 +42,9 @@ func (s *Nullable[T]) Scan(src interface{}) error {
 	var val T
 	*s = Nullable[T]{Val: &val}
 	switch src.(type) {
-	case []byte:
+	case T:
+		val = src.(T)
+	default:
 		if v, ok := reflect.ValueOf(s.Val).Interface().(sql.Scanner); ok {
 			err := v.Scan(src)
 			if err != nil {
@@ -50,8 +52,6 @@ func (s *Nullable[T]) Scan(src interface{}) error {
 			}
 			val = reflect.ValueOf(v).Elem().Interface().(T)
 		}
-	case T:
-		val = src.(T)
 	}
 	return nil
 }
